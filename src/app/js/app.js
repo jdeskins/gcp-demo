@@ -19,7 +19,7 @@ App.factory('myHttpInterceptor', function($rootScope, $q) {
 App.factory('guestService', function($rootScope, $http, $q, $log) {
   $rootScope.status = 'Retrieving data...';
   var deferred = $q.defer();
-  $http.get('rest/query')
+  $http.get('api/query')
   .success(function(data, status, headers, config) {
     $rootScope.guests = data;
     deferred.resolve();
@@ -64,7 +64,7 @@ App.controller('MainCtrl', function($scope, $rootScope, $log, $http, $routeParam
 
   $scope.delete = function(guest) {
     $rootScope.status = 'Deleting guest ' + guest.id + '...';
-    $http.post('/rest/delete', {'id': guest.id})
+    $http.post('/api/delete', {'id': guest.id})
     .success(function(data, status, headers, config) {
       for (var i=0; i<$rootScope.guests.length; i++) {
         if ($rootScope.guests[i].id == guest.id) {
@@ -86,7 +86,7 @@ App.controller('InsertCtrl', function($scope, $rootScope, $log, $http, $routePar
       last : $scope.last, 
     };
     $rootScope.status = 'Creating...';
-    $http.post('/rest/insert', guest)
+    $http.post('/api/insert', guest)
     .success(function(data, status, headers, config) {
       $rootScope.guests.push(data);
       $rootScope.status = '';
@@ -105,7 +105,7 @@ App.controller('UpdateCtrl', function($routeParams, $rootScope, $scope, $log, $h
 
   $scope.submitUpdate = function() {
     $rootScope.status = 'Updating...';
-    $http.post('/rest/update', $scope.guest)
+    $http.post('/api/update', $scope.guest)
     .success(function(data, status, headers, config) {
       for (var i=0; i<$rootScope.guests.length; i++) {
         if ($rootScope.guests[i].id == $scope.guest.id) {

@@ -15,10 +15,7 @@
 import json
 import webapp2
 import model
-
-
-def as_dict(guest):
-    return {'id': guest.key.id(), 'first': guest.first, 'last': guest.last}
+import utils
 
 
 class RestHandler(webapp2.RequestHandler):
@@ -37,23 +34,21 @@ class RestHandler(webapp2.RequestHandler):
 
 class CachedQueryHandler(RestHandler):
     def get(self):
-        guests = model.all_guests()
-        r = [as_dict(guest) for guest in guests]
-        self.cached_json(r)
+        guests = utils.get_cached_guests()
+        self.cached_json(guests)
 
 
 class QueryHandler(RestHandler):
     def get(self):
-        guests = model.all_guests()
-        r = [as_dict(guest) for guest in guests]
-        self.send_json(r)
+        guests = utils.get_guests()
+        self.send_json(guests)
 
 
 class UpdateHandler(RestHandler):
     def post(self):
         r = json.loads(self.request.body)
         guest = model.update_guest(r['id'], r['first'], r['last'])
-        r = as_dict(guest)
+        r = utils.as_dict(guest)
         self.send_json(r)
 
 
@@ -61,7 +56,7 @@ class InsertHandler(RestHandler):
     def post(self):
         r = json.loads(self.request.body)
         guest = model.insert_guest(r['first'], r['last'])
-        r = as_dict(guest)
+        r = utils.as_dict(guest)
         self.send_json(r)
 
 
@@ -72,9 +67,9 @@ class DeleteHandler(RestHandler):
 
 
 APP = webapp2.WSGIApplication([
-    ('/rest/cached', CachedQueryHandler),
-    ('/rest/query', QueryHandler),
-    ('/rest/insert', InsertHandler),
-    ('/rest/delete', DeleteHandler),
-    ('/rest/update', UpdateHandler),
+    ('/api/cached', CachedQueryHandler),
+    ('/api/query', QueryHandler),
+    ('/api/insert', InsertHandler),
+    ('/api/delete', DeleteHandler),
+    ('/api/update', UpdateHandler),
 ], debug=True)
