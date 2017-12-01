@@ -1,0 +1,24 @@
+runtime: python27
+threadsafe: true
+api_version: 1
+
+
+builtins:
+- appstats: on
+
+
+handlers:
+- url: /rest/.*
+  script: main.APP
+
+- url: /(.+)
+  static_files: app/\1
+  expiration: "5m"
+  upload: app/.*
+
+- url: /
+  static_files: app/index.html
+  upload: app/index.html
+  expiration: "2m"
+  http_headers:
+        Content-Security-Policy: default-src 'self'; img-src * data:; media-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' www.google-analytics.com https://*.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com; font-src * data:; frame-src 'self'
