@@ -13,6 +13,8 @@
 # limitations under the License.
 
 import json
+import logging
+import os
 import webapp2
 import model
 import utils
@@ -30,6 +32,12 @@ class RestHandler(webapp2.RequestHandler):
     def send_json(self, r):
         self.response.headers['content-type'] = 'application/json'
         self.response.write(json.dumps(r))
+
+
+class VersionHandler(RestHandler):
+    def get(self):
+        version = os.environ.get("CURRENT_VERSION_ID")
+        self.send_json({'version': version})
 
 
 class CachedQueryHandler(RestHandler):
@@ -72,4 +80,5 @@ APP = webapp2.WSGIApplication([
     ('/api/insert', InsertHandler),
     ('/api/delete', DeleteHandler),
     ('/api/update', UpdateHandler),
+    ('/api/version', VersionHandler),
 ], debug=True)
