@@ -1,9 +1,23 @@
 # Google Cloud Demo
 
-Walk through the features of Google Cloud App Engine Standard
+Walk through the features of Google Cloud App Engine Standard.
+
+Topics include:
+* Static files
+* Custom headers
+* Local development
+* Pre-warm instance
+* Logging
+* App stats
+* Memcache
+* Canary deploy
+* Live debugging on logging
+* Stackdriver Comparison Report
+* Public Cache
+
  
 ## App Stats
-[http://localhost:8080/_ah/stats/]()
+URL: [http://localhost:8080/_ah/stats/]()
 
 ## Test Split Deployment
 
