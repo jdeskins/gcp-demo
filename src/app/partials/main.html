@@ -1,7 +1,28 @@
-<h2>Guest list</h2>
-<button ng-click="invite()">Invite another guest</button>
-<div ng-repeat="guest in guests | orderBy:'last' | orderBy:'first'">
-  <button ng-click="delete(guest)">delete</button>
-  <button ng-click="update(guest)">update</button>
-  {{ $index + 1 }}. <b>{{ guest.first }} {{ guest.last }}</b>
+<div class="row">
+  <div class="col-md-6">
+    <h2>Guest list</h2>
+    <button ng-click="invite()" class="btn btn-success">Invite another guest</button>
+    <div ng-repeat="guest in guests | orderBy:'last' | orderBy:'first'">
+      {{ $index + 1 }}. <b>{{ guest.first }} {{ guest.last }}</b>
+      <a ng-click="update(guest)">update</a> | <a ng-click="delete(guest)">delete</a>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h2>Weather</h2>
+    <form class="form-inline" ng-submit="submitWeather(zipcode)">
+      <div class="form-group">
+        <label>Zip Code:</label>
+        <input type="text" class="form-control" ng-model="zipcode" autofocus="true" />
+      </div>
+      <button type="submit" class="btn btn-primary">Get Weather</button>
+    </form>
+
+    <div ng-if="weather" class="weather">
+      <h3>Current Conditions</h3>
+      <div><b>City:</b> {{weather.city}}, {{weather.region}}</div>
+      <div><b>Temperature:</b> {{weather.temp}}</div>
+      <a href="/api/weather?zipcode={{zipcode}}" target="json">Raw JSON</a>
+    </div>
+  </div>
 </div>

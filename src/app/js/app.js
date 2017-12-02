@@ -32,16 +32,16 @@ App.config(function($routeProvider) {
   $routeProvider.when('/', {
     controller : 'MainCtrl',
     templateUrl: '/partials/main.html',
-    resolve    : { 'guestService': 'guestService' },
+    resolve    : { 'guestService': 'guestService' }
   });
   $routeProvider.when('/invite', {
     controller : 'InsertCtrl',
-    templateUrl: '/partials/insert.html',
+    templateUrl: '/partials/insert.html'
   });
   $routeProvider.when('/update/:id', {
     controller : 'UpdateCtrl',
     templateUrl: '/partials/update.html',
-    resolve    : { 'guestService': 'guestService' },
+    resolve    : { 'guestService': 'guestService' }
   });
   $routeProvider.otherwise({
     redirectTo : '/'
@@ -74,6 +74,15 @@ App.controller('MainCtrl', function($scope, $rootScope, $log, $http, $routeParam
       }
       $rootScope.status = '';
     });
+  };
+
+  $scope.submitWeather = function() {
+    console.log($scope.zipcode);
+    $http.get('api/weather?zipcode=' + $scope.zipcode)
+      .success(function(data, status, headers, config) {
+        console.log('data=' + JSON.stringify(data));
+        $rootScope.weather = data;
+      });
   };
 
 });
