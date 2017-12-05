@@ -47,10 +47,9 @@ class CachedQueryHandler(RestHandler):
 
 
 class WeatherHandler(RestHandler):
-    def get(self):
-        zipcode = self.request.get('zipcode')
+    def get(self, zipcode):
         weather = utils.get_weather(zipcode)
-        self.send_json(weather)
+        self.cached_json(weather)
 
 
 class QueryHandler(RestHandler):
@@ -82,11 +81,11 @@ class DeleteHandler(RestHandler):
 
 
 APP = webapp2.WSGIApplication([
-    ('/api/cached', CachedQueryHandler),
-    ('/api/query', QueryHandler),
-    ('/api/insert', InsertHandler),
-    ('/api/delete', DeleteHandler),
-    ('/api/update', UpdateHandler),
-    ('/api/version', VersionHandler),
-    ('/api/weather', WeatherHandler),
+    webapp2.Route('/api/cached', CachedQueryHandler),
+    webapp2.Route('/api/query', QueryHandler),
+    webapp2.Route('/api/insert', InsertHandler),
+    webapp2.Route('/api/delete', DeleteHandler),
+    webapp2.Route('/api/update', UpdateHandler),
+    webapp2.Route('/api/version', VersionHandler),
+    webapp2.Route('/api/weather/<zipcode:\d+>', WeatherHandler),
 ], debug=True)

@@ -78,7 +78,7 @@ App.controller('MainCtrl', function($scope, $rootScope, $log, $http, $routeParam
 
   $scope.submitWeather = function() {
     console.log($scope.zipcode);
-    $http.get('api/weather?zipcode=' + $scope.zipcode)
+    $http.get('api/weather/' + $scope.zipcode)
       .success(function(data, status, headers, config) {
         console.log('data=' + JSON.stringify(data));
         $rootScope.weather = data;
