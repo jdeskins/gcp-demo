@@ -38,6 +38,7 @@ def get_weather(zipcode):
         response = urllib2.urlopen(url)
         data = json.load(response)
 
+        # Set values from dictionary
         channel = data['query']['results']['channel']
         city = channel['location']['city']
         region = channel['location']['region']
@@ -49,5 +50,5 @@ def get_weather(zipcode):
             'temp': temp,
             'wind': wind,
         }
-        memcache.add(key, weather, 300)
+        memcache.add(key, weather, 300)  # Cache for 5 minutes
     return weather
