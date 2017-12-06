@@ -3,9 +3,9 @@
 Walk through the features of Google Cloud App Engine Standard.
 
 Topics include:
+* Local development
 * Static files
 * Custom headers
-* Local development
 * Pre-warm instance
 * Logging
 * App stats
@@ -36,3 +36,7 @@ while true; do curl https://${PROJECT_ID}.appspot.com/api/version; echo ""; slee
 Demo of the difference between serving files over HTTP/1.1 vs HTTP/2
 [https://http2.akamai.com/demo]()
 
+## Test Latency
+```
+for i in {1..3};do curl -s -w "%{time_total}\n" -o /dev/null https://${PROJECT_ID}.appspot.com/api/weather/37234; done
+```
