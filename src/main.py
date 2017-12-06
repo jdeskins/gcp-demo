@@ -88,7 +88,14 @@ class DeleteHandler(RestHandler):
         model.delete_guest(r['id'])
 
 
+class WarmupHandler(RestHandler):
+    def get(self):
+        # Do stuff here to warm up the instance
+        self.send_json({"status": "warmup request finished ok."})
+
+
 APP = webapp2.WSGIApplication([
+    webapp2.Route('/_ah/warmup', WarmupHandler),
     webapp2.Route('/api/cached', CachedQueryHandler),
     webapp2.Route('/api/food', FoodHandler),
     webapp2.Route('/api/query', QueryHandler),

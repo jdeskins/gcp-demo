@@ -7,9 +7,22 @@ builtins:
 - appstats: on
 
 
+inbound_services:
+- warmup
+
+
 handlers:
 - url: /api/.*
   script: main.APP
+
+- url: /_ah/warmup
+  script: main.APP
+  login: admin
+
+- url: /favicon.ico
+  static_files: app/images/favicon.ico
+  upload: app/images/favicon.ico
+  expiration: '15d'
 
 - url: /(.+)
   static_files: app/\1
