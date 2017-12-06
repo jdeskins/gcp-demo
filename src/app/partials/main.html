@@ -3,7 +3,7 @@
     <h2>Guest list</h2>
     <button ng-click="invite()" class="btn btn-success">Invite another guest</button>
     <div ng-repeat="guest in guests | orderBy:'last' | orderBy:'first'">
-      {{ $index + 1 }}. <b>{{ guest.first }} {{ guest.last }}</b>
+      {{ $index + 1 }}. <b>{{ guest.first }} {{ guest.last }} - {{ guest.food }}</b>
       <a ng-click="update(guest)">update</a> | <a ng-click="delete(guest)">delete</a>
     </div>
   </div>

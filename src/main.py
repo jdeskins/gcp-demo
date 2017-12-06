@@ -52,6 +52,14 @@ class WeatherHandler(RestHandler):
         self.cached_json(weather)
 
 
+class FoodHandler(RestHandler):
+    def get(self):
+        food = self.request.get('food')
+        logging.info('food=%s' % food)
+        guests = utils.get_guests_by_food(food)
+        self.send_json(guests)
+
+
 class QueryHandler(RestHandler):
     def get(self):
         guests = utils.get_guests()
@@ -61,7 +69,7 @@ class QueryHandler(RestHandler):
 class UpdateHandler(RestHandler):
     def post(self):
         r = json.loads(self.request.body)
-        guest = model.update_guest(r['id'], r['first'], r['last'])
+        guest = model.update_guest(r['id'], r['first'], r['last'], r['food'])
         r = utils.as_dict(guest)
         self.send_json(r)
 
@@ -69,7 +77,7 @@ class UpdateHandler(RestHandler):
 class InsertHandler(RestHandler):
     def post(self):
         r = json.loads(self.request.body)
-        guest = model.insert_guest(r['first'], r['last'])
+        guest = model.insert_guest(r['first'], r['last'], r['food'])
         r = utils.as_dict(guest)
         self.send_json(r)
 
@@ -82,6 +90,7 @@ class DeleteHandler(RestHandler):
 
 APP = webapp2.WSGIApplication([
     webapp2.Route('/api/cached', CachedQueryHandler),
+    webapp2.Route('/api/food', FoodHandler),
     webapp2.Route('/api/query', QueryHandler),
     webapp2.Route('/api/insert', InsertHandler),
     webapp2.Route('/api/delete', DeleteHandler),

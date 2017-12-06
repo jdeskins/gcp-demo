@@ -7,11 +7,17 @@ from google.appengine.api import memcache
 
 
 def as_dict(guest):
-    return {'id': guest.key.id(), 'first': guest.first, 'last': guest.last}
+    return {'id': guest.key.id(), 'first': guest.first, 'last': guest.last, 'food': guest.food}
 
 
 def get_guests():
     guests = model.all_guests()
+    r = [as_dict(guest) for guest in guests]
+    return r
+
+
+def get_guests_by_food(food):
+    guests = model.get_guests_by_food(food)
     r = [as_dict(guest) for guest in guests]
     return r
 

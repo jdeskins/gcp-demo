@@ -93,6 +93,7 @@ App.controller('InsertCtrl', function($scope, $rootScope, $log, $http, $routePar
     var guest = {
       first : $scope.first,
       last : $scope.last, 
+      food : $scope.food
     };
     $rootScope.status = 'Creating...';
     $http.post('/api/insert', guest)
