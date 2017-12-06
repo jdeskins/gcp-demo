@@ -24,6 +24,13 @@ You can view stats for the app when developing locally.
 [http://localhost:8080/_ah/stats/]()
 
 
+## Create datastore index
+```
+./create-index.sh -A ${PROJECT_ID}
+```
+Open Datastore / Indexes page in console to see when index has finished building.
+May take a few minutes depending on size of existing data.
+
 ## Test Split Deployment
 
 ```
