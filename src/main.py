@@ -46,12 +46,6 @@ class CachedQueryHandler(RestHandler):
         self.cached_json(guests)
 
 
-class WeatherHandler(RestHandler):
-    def get(self, zipcode):
-        weather = utils.get_weather(zipcode)
-        self.cached_json(weather)
-
-
 class QueryHandler(RestHandler):
     def get(self):
         guests = utils.get_guests()
@@ -84,6 +78,12 @@ class WarmupHandler(RestHandler):
     def get(self):
         # Do stuff here to warm up the instance
         self.send_json({"status": "warmup request finished ok."})
+
+
+class WeatherHandler(RestHandler):
+    def get(self, zipcode):
+        weather = utils.get_weather(zipcode)
+        self.cached_json(weather)
 
 
 APP = webapp2.WSGIApplication([
