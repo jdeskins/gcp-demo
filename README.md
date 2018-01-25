@@ -40,3 +40,10 @@ Demo of the difference between serving files over HTTP/1.1 vs HTTP/2
 ```
 for i in {1..3};do curl -s -w "%{time_total}\n" -o /dev/null https://${PROJECT_ID}.appspot.com/api/weather/37234; done
 ```
+
+## $300 credit 
+Good for one year for new customers. You can also see the always free products at this link.
+https://cloud.google.com/free/
+
+## App Engine Standard Python Tutorials
+https://cloud.google.com/appengine/docs/standard/python/tutorials
